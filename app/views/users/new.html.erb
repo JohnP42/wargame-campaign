@@ -1,0 +1,21 @@
+<main>
+<section>
+	<h2>Sign Up</h2>
+	<h4>Enter the following information</h4>
+
+	<%= form_for @user, url: {action: "create"} do |f| %>
+		Username: <%= f.text_field :username %>
+		Email: <%= f.text_field :email %>
+		Password: <%= f.password_field :password %>
+		Confirm Password: <%= f.password_field :password_confirmation %>
+		<%= f.submit "Sign Up" %>
+	<% end %>
+
+	<ul class="errors">
+		<% @errors.each do |error| %>
+			<li><%= error %></li> 
+		<% end if @errors != nil %>
+	</ul>
+
+</section>
+</main

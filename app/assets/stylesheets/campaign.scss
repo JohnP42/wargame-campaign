@@ -1,0 +1,130 @@
+/* Colors */
+$light: #CCCCCC;
+$medium: #888888;
+$dark: #222222;
+
+$primary: #FFCC00;
+$secondary-light: #0066CC;
+$secondary: #003366;
+$secondary-dark: #001122;
+
+.battalion {
+	border: 4px ridge silver;
+	padding: 0px 5px;
+}
+
+.buildings h4 {
+	padding: 0px;
+	margin: 0px;
+}
+
+.buildings li {
+	display: inline-block;
+	background-color: $secondary-dark;
+	padding: 2px;
+	margin: 2px;
+	border: 1px solid silver; 
+}
+
+.buildings li:first-child {
+	display: inline-block;
+	background-color: $dark;
+	border: none; 
+}
+
+.units h4 {
+	padding: 0px;
+	margin: 0px;
+}
+
+.units li {
+	display: inline-block;
+	background-color: $secondary-dark;
+	padding: 2px;
+	margin: 2px;
+	border: 1px solid silver; 
+}
+
+.units li:first-child {
+	display: inline-block;
+	background-color: $dark;
+	border: none; 
+}
+
+.icon {
+	color: white;
+	font-size: 12px;
+	height: 32px;
+  line-height: 32px;
+	width: 32px;
+	height: 32px;
+}
+
+.castle0 {
+	background-image: url("icons/castle0.png");
+}
+
+.castle1 {
+	background-image: url("icons/castle1.png");
+}
+
+.castle2 {
+	background-image: url("icons/castle2.png");
+}
+
+.castle3 {
+	background-image: url("icons/castle3.png");
+}
+
+.town0 {
+	background-image: url("icons/town0.png");
+}
+
+.town1 {
+	background-image: url("icons/town1.png");
+}
+
+.town2 {
+	background-image: url("icons/town2.png");
+}
+
+.town3 {
+	background-image: url("icons/town3.png");
+}
+
+.unit0 {
+	background-image: url("icons/unit0.png");
+}
+
+.unit1 {
+	background-image: url("icons/unit1.png");
+}
+
+.unit2 {
+	background-image: url("icons/unit2.png");
+}
+
+.unit3 {
+	background-image: url("icons/unit3.png");
+}
+
+#dpad {
+	text-align: center;
+}
+
+#dpad tr {
+	background: none;
+}
+
+#dpad td {
+	border: none;
+}
+
+#selected {
+	background-image: none;
+	background-color: #00FF00;
+}
+
+.btn-direction {
+	width: 50px;
+}

@@ -1,0 +1,56 @@
+<main>
+<section>
+	<h2>Create a New Map</h2>
+
+	<form id="create-map">
+  	Width: <select id="width">
+      <option value="8">8</option>
+		  <option value="12">12</option>
+		  <option value="16">16</option>
+		  <option value="20">20</option>
+		  <option value="24">24</option>
+  	</select>
+  	Height: <select id="height">
+  	  <option value="8">8</option>
+  	  <option value="12">12</option>
+  	  <option value="16">16</option>
+  	  <option value="20">20</option>
+  	  <option value="24">24</option>
+  	</select>
+  	<input type="submit" value="New Map">
+  </form>
+
+  <select id="select-tile">
+    <option value="tile0">Plain</option>
+    <option value="tile1">Forest</option>
+    <option value="tile2">Mountain</option>
+    <option value="tile3">Water</option>
+    <option value="tile4">Castle</option>
+    <option value="tile5">Town</option>
+  </select>
+
+  <div id="show-tile" class="tile0"></div>
+
+  <table id="map" cellspacing="0">
+
+  </table>
+</section>
+
+<section>
+	<h3>Save Your Map</h3>
+
+  <%= form_for [current_user, @map], url: {action: "create"}, html: { id: "final_form"} do |f| %>
+  	<%= f.hidden_field :tileset %>
+  	Name: <%= f.text_field :name %>
+  	Description: <%= f.text_area :description %>
+  	<%= f.submit "Save Map" %>
+  <% end %>
+
+  <ul class="errors">
+		<% @errors.each do |error| %>
+			<li><%= error %></li> 
+		<% end if @errors != nil %>
+	</ul>
+
+</section>
+</main>

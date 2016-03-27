@@ -1,0 +1,38 @@
+<main>
+<section>
+	<h1><%= @army.name %></h1>
+	<p><%= @army.description %></p>
+</section>
+
+<section>
+	<h2>Units</h2>
+	
+	<table>
+		<tr>
+			<th>Name</th>
+			<th>Combat-Type</th>
+			<th>Description</th>
+			<th>Price</th>
+			<th>Tier</th>
+			<th>Hero</th>
+		</tr>
+		<% @army.units.each do |unit| %>
+			<tr>
+				<td><%= unit.name %></td>
+				<td><%= unit.combatType %></td>
+				<td><%= unit.description %></td>
+				<td><%= unit.price %></td>
+				<td><%= unit.tier %></td>
+				<td><%= unit.hero %></td>
+				<% if current_user == @army.user %>
+					<td><%= link_to "Edit", edit_user_army_unit_path(current_user, @army, unit) %></td>
+					<td><%= link_to "Delete", [current_user, @army, unit], method: "delete", data: {confirm: "Are you sure you want to delete #{unit.name}?"} %></td>
+				<% end %>
+			</tr>
+		<% end %>
+	</table>
+
+	<%= link_to "Add Unit", new_user_army_unit_path(current_user, @army) if current_user == @army.user %>
+
+</section>
+</main>

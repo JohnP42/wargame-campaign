@@ -1,0 +1,44 @@
+<h3><%= battalion.type.capitalize %></h3>
+
+<ul class="units">
+	<li><h4>Units:</h4></li>
+	<% battalion.units.each do |unit_id, count| %>
+		<li><%= "#{Unit.find(unit_id).name}: #{count}" %></li>
+	<% end %>
+</ul>
+
+<% if battalion.type == "castle" || battalion.type == "town" %>
+	<ul class="units">
+		<li><h4>Available to Train:</h4></li>
+		<% battalion.trainable.each do |unit| %>
+			<li class="unit"><a href="/campaigns/<%=@campaign.id%>" id="unit<%=unit.id%>" class="<%=unit.price%>"><%= "#{unit.name}: #{unit.price}g" %></a></li>
+		<% end %>
+	</ul>
+
+	<ul class="buildings">
+		<li><h4>Buildings:</h4></li>
+		<% battalion.buildings.each do |building| %>
+			<li><%= building %></li>
+		<% end %>
+	</ul>
+	<ul class="buildings">
+		<li><h4>Available to Build:</h4></li>
+		<% battalion.buildable.each do |building, cost| %>
+			<li class="building"><a href="/campaigns/<%=@campaign.id%>" class="<%=cost%> <%=building%>"><%= "#{building}: #{cost}g" %></a></li>
+		<% end %>
+	</ul>
+
+	<button class="form_battalion">Form Battalion</button>
+
+	<%= form_tag("/campaigns/#{@campaign.id}/create_battalion", method: "put", class: "new_battalion" ,style: "display:none;") do %>
+		<% battalion.units.each do |unit_id, count| %>
+			<%= Unit.find(unit_id).name %><%= number_field_tag(:"units[#{unit_id}]", 0, within: 0..count) %>
+		<% end %>
+		<%= select_tag(:move_location, options_for_select(battalion.possible_moves(@campaign))) %>
+		<%= hidden_field_tag(:battalion_id, battalion.id) %>
+		<%= submit_tag("Create Battalion") %>
+	<% end %>
+
+<% else %>
+	<h4>Movment Left: <%= battalion.movement %></h4>
+<% end %>

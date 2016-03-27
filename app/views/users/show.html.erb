@@ -1,0 +1,75 @@
+<main>
+<h1><%= @user.username %></h1>
+
+<% if current_user.friends.find_by_id(@user.id) == nil && @user != current_user %>
+	<div id="add-friend"><%= link_to "Add Friend", friendships_path(friend_id: @user.id), :method => :post %></div>
+<% end %>
+
+<section>
+	<h2>Current Campaign</h2>
+	<p>
+		<% if @user.campaign %>
+			<%= link_to(@user.campaign.name, @user.campaign) %>
+			<%= link_to "Leave", @user.campaign, method: "delete", data: {confirm: "Are you sure you want to leave #{@user.campaign.name}?" } %>
+		<% else %>
+			<% if @user == current_user %>
+				<% if @user.has_current_army_set? %>
+				<%= link_to("Start a new Campaign", new_campaign_path) %>
+				<% else %>
+				You must have an army set as current(★) to start a campaign
+				<% end %>
+			<% else %>
+				Not currently in a campaign
+			<% end %>
+		<% end %>	
+	</p>
+</section>
+
+<section>
+	<h2>Maps</h2>
+		<ul>
+			<% @user.maps.each do |map| %>
+				<li><%= link_to map.name, [@user, map] %>
+					<% if current_user == @user %>
+						<%= link_to "Edit", edit_user_map_path(@user, map) %> 
+						<%= link_to "Delete", [@user, map], method: "delete", data: {confirm: "Are you sure you want to delete #{map.name}?" } %>
+					<% end %></li>
+			<% end %>
+		</ul>
+
+		<%= link_to "Create New Map", new_user_map_path(@user) if current_user == @user %>
+</section>
+
+<section>
+	<h2>Armies</h2>
+		<ul>
+			<% @user.armies.each do |army| %>
+				<li>
+					<%= "★" if army.is_current %>
+					<%= link_to army.name, [@user, army] %>
+					<% if current_user == @user %>
+						<%= link_to "Edit", edit_user_army_path(@user, army) %> 
+						<%= link_to "Delete", [@user, army], method: "delete", data: {confirm: "Are you sure you want to delete #{army.name}?" } %>
+					<% else %>
+						<%= link_to "Copy this Army", "/users/#{@user.id}/armies/#{army.id}/copy" %>
+					<% end %>
+				</li>
+			<% end %>
+		</ul>
+
+		<%= link_to "Create New Army", new_user_army_path(@user) if current_user == @user %>
+</section>
+
+<section>
+	<h2>Friends</h2>
+	<ul>
+		<% @user.friendships.each do |friendship| %>
+			<li>
+				<%= link_to friendship.friend.username, friendship.friend %>
+				<%= link_to "Remove", friendship, method: "delete" %>
+			</li>
+		<% end %>
+	</ul>
+</section>
+
+</main>

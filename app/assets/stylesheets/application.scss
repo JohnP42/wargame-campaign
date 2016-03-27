@@ -1,0 +1,146 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_self
+ *= require_tree .
+*/
+
+/* Colors */
+$light: #CCCCCC;
+$medium: #888888;
+$dark: #222222;
+
+$primary: #FFCC00;
+$secondary-light: #0066CC;
+$secondary: #003366;
+$secondary-dark: #001122;
+
+body {
+  background-color: $light;
+  background: -webkit-linear-gradient($light, $dark); /* For Safari 5.1 to 6.0 */
+	background: -o-linear-gradient($light, $dark); /* For Opera 11.1 to 12.0 */
+	background: -moz-linear-gradient($light, $dark); /* For Firefox 3.6 to 15 */
+	background: linear-gradient($light, $dark); /* Standard syntax */
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+}
+
+div.field_with_errors {
+  display: inline;
+}
+
+header {
+	background-color: $dark;
+	position: absolute;
+	min-width: 908px;
+	top: 0px;
+	left: 0px;
+	right: 0px;
+	text-align: center;
+}
+
+header img {
+	margin: auto;
+	display: block;
+	border: 4px ridge $medium;
+	border-radius: 5px;
+}
+
+
+nav ul {
+	clear: both;
+}
+
+nav li {
+	display: inline-block;
+	padding: 0px 5px;
+}
+
+a {
+	padding-right: 10px;
+	color: $secondary-light;
+	border-right: 1px solid $primary;
+	text-decoration: none;
+}
+
+a:last-child {
+	border: none;
+}
+
+a:hover {
+	color: $secondary;
+}
+
+#nav-buttons a {
+	transition: 0.25s;
+	background-color: silver;
+	padding: 2px 5px;
+	border: 2px ridge $medium;
+	border-radius: 5%;
+	font-weight: bold;
+}
+
+#nav-buttons a:hover {
+	transition: 0.25s;
+	background-color: gray;
+}
+
+#account {
+	text-align: right;
+	color: $primary;
+}
+
+#account li:first-child {
+	border-right: 1px solid $primary;
+}
+
+main {
+	margin: 150px auto 0px auto;
+	padding: 130px 5px;
+	min-height: 520px;
+	max-width:  1000px;
+}
+
+section {
+	color: $light;
+	background-color: $dark;
+	padding: 20px 50px;
+	margin: 10px;
+	min-width: 700px;
+}
+
+h1, h2, h3, h4 {
+	color: $dark;
+}
+
+section h1, h2, h3, h4 {
+	color: $primary;
+}
+
+form * {
+	display: block;
+	margin: 5px 0px;
+}
+
+table {
+	border-collapse: collapse;
+	word-wrap: break-word;
+}
+
+table td, th {
+	border: 1px solid $medium;
+	padding: 2px;
+	max-width: 350px;
+}
+
+table tr:nth-child(odd) {
+	background-color: $secondary-dark;
+}

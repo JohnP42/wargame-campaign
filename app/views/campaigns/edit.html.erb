@@ -1,0 +1,48 @@
+<main id="turn<%= @campaign.users.index(current_user) %>" class="campaign">
+<section>
+	<h1><%= @campaign.name %></h1>
+	<p><%= @campaign.description %></p>
+
+	<h4>Make your move, <%= current_user.username %></h4>
+
+	<%= form_for @campaign, url: {action: "update"} do |f| %>
+  	<%= f.submit "End Turn", data: { disable_with: "Ending Turn..." } %>
+  <% end %>
+
+	<table id="map" cellspacing="0">
+		<%= @campaign.to_html_table.html_safe %>
+	</table>
+
+	<table id="dpad">
+		<tr>
+			<td></td>
+			<td><button class="btn-direction" value="/campaigns/<%= @campaign.id %>/move">Up</button></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td><button class="btn-direction" value="/campaigns/<%= @campaign.id %>/move">Left</button></td>
+			<td>Move</td>
+			<td><button class="btn-direction" value="/campaigns/<%= @campaign.id %>/move">Right</button></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td><button class="btn-direction" value="/campaigns/<%= @campaign.id %>/move">Down</button></td>
+			<td></td>
+		</tr>
+	</table>
+
+</section>
+
+<section>
+	<h2>Details</h2>
+	<h4 id="gold" class="<%= current_user.gold %>">Gold: <%= current_user.gold %></h4>
+
+	<% current_user.battalions.each do |battalion| %>
+		<div id="<%= battalion.id %>" class="battalion" style="display: none;">
+			<%= render partial: "battalion", locals: {battalion: battalion} %>
+		</div>
+	<% end %>
+
+</section>
+
+</main>

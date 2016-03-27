@@ -1,0 +1,13 @@
+<main>
+<section>
+	<h1><%= @map.name %></h1>
+	<p><%= @map.description %></p>
+
+	<table id="map" cellspacing="0">
+		<%= @map.to_html_table.html_safe %>
+  </table>
+
+  <p><%= link_to "Copy this Map", "/users/#{params[:user_id]}/maps/#{@map.id}/copy" %></p>
+
+</section>
+</main>

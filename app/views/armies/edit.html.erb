@@ -1,0 +1,21 @@
+<main>
+<section>
+	<h2>Edit this Army</h2>
+
+	<%= form_for @army, url: {action: "update"} do |f| %>
+		Army Name: <%= f.text_field :name %>
+		Description: <%= f.text_area :description %>
+		<% if !current_user.campaign %>
+			Set as Current: <%= f.check_box :is_current %>
+		<% end %>
+		<%= f.submit "Save Changes" %>
+	<% end %>
+
+	<ul class="errors">
+		<% @errors.each do |error| %>
+			<li><%= error %></li> 
+		<% end if @errors != nil %>
+	</ul>
+
+</section>
+</main>

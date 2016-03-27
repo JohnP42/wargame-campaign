@@ -1,0 +1,51 @@
+#create-map * {
+	display: inline;
+}
+
+#map {
+	margin-top: 10px;
+	border: 4px ridge silver;
+	table-layout: fixed;
+}
+
+#map tr td{
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	border: 1px dashed silver;
+	width: 32px;
+	height: 32px;
+	overflow: hidden;
+}
+
+#show-tile {
+	height: 32px;
+	width: 32px;
+	border: 4px ridge silver; 
+	margin-top: 5px; 
+}
+
+.tile0 {
+	background-image: url("tiles/plain.png");
+}
+
+.tile1 {
+	background-image: url("tiles/forest.png");
+}
+
+.tile2 {
+	background-image: url("tiles/mountain.png");
+}
+
+.tile3 {
+	background-image: url("tiles/water.png");
+}
+
+.tile4 {
+	background-image: url("tiles/hq.png");
+}
+
+.tile5 {
+	background-image: url("tiles/city.png");
+}
+

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Wargame Campaign</title>
+  <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= javascript_include_tag 'application' %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<header>
+	<nav>
+		<ul id="account">
+			<% if logged_in? %>
+			<li>Hello, <%= link_to current_user.username, current_user %></li>
+			<li><%= link_to "Log out", session_path(session), method: :delete %></li>
+			<% else %>
+			<li><%= link_to "Log in", new_session_path %></li>
+			<li><%= link_to "Register", new_user_path %></li>
+			<% end %>
+		</ul>
+		<%= image_tag("wargame_campaign.png") %>
+		<ul id="nav-buttons">
+			<li><%= link_to "Home", root_path %></li>
+			<li><%= link_to "Wargamers", users_path %></li>
+			<li><%= link_to "Campaigns", campaigns_path %></li>
+			<li><%= link_to "Rules", "/welcome/rules" %></li>
+		</ul>
+	</nav>
+</header>
+
+<%= yield %>
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+<main>
+<section>
+	<h2>Log In To <%= site_name %></h2>
+
+	<%= form_for :session, url: sessions_path do |f| %>
+		Email: <%= f.text_field :email %>
+		Password: <%= f.password_field :password %>
+		<%= f.submit "Sign In" %>
+	<% end %>
+
+	<ul class="errors">
+		<% @errors.each do |error| %>
+			<li><%= error %></li> 
+		<% end if @errors != nil %>
+	</ul>
+
+</section>
+</main>

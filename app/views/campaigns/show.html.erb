@@ -1,0 +1,83 @@
+<main>
+<section>
+	<h1><%= @campaign.name %></h1>
+	<p><%= @campaign.description %></p>
+
+	<h4>Players Joined</h4>
+	<ul>
+		<% @campaign.users.each do |user| %>
+			<li><%= link_to user.username, user %></li>
+		<% end %>
+		<% if (@campaign.players_invited.include?(current_user) && !@campaign.users.include?(current_user)) %>
+			<li>
+				<% if current_user.has_current_army_set? %>
+					<%= link_to "Join Campaign", "/campaigns/#{@campaign.id}/join", method: "post"%>
+				<% else %>
+					You must have an army set as current(★) to join a campaign 
+				<% end %>
+			</li>		
+ 		<% end %>
+	</ul>
+
+	<% unless @campaign.turn %>
+		<h4>Players Invited</h4>
+		<ul>
+			<% @campaign.players_invited.each do |user| %>
+				<li><%= link_to user.username, user %></li>
+			<% end %>
+		</ul>
+
+		<% if (@campaign.users.include?(current_user)) %>
+			<p><%= link_to "Start Campaign","/campaigns/#{@campaign.id}/start", method: "post", data: {confirm: "Are you sure you want to start? #{'Not all players have joined yet' if @campaign.users.length != @campaign.players_invited.length}"} %></p>
+		<% end %>
+	<% else %>
+		<% if @campaign.all_battles.length == 0 %>
+			<h4>It is <%= @campaign.players_turn.username %>'s turn</h4>
+
+			<% if @campaign.players_turn == current_user %>
+				<p><%= link_to "Take your turn", edit_campaign_path(@campaign) %></p>
+			<% end %>
+		<% else %>
+			<h4>Upcoming Battles:</h4>
+
+			<% @campaign.all_battles.each do |battle| %>
+				<div>
+					<h4><%= Battalion.find(battle[0]).user.username %>(<%= Battalion.find(battle[0]).total_units %> models) VS <%= Battalion.find(battle[1]).user.username %>(<%= Battalion.find(battle[1]).total_units %> models)</h4>
+
+					<% if current_user == Battalion.find(battle[0]).user || current_user == Battalion.find(battle[1]).user %>
+						<%= form_tag("/campaigns/#{@campaign.id}/battle", method: "post") do %>
+							<%= hidden_field_tag :battle, battle %>
+							Winner: 
+							<%= select_tag :winner, options_for_select(@campaign.battle_select_options(battle)) %>
+							Casualties for <%= Battalion.find(battle[0]).user.username %>: 
+							<ul>
+								<% Battalion.find(battle[0]).units.each do |unit_id, count| %>
+									<li>
+										<%= Unit.find(unit_id).name %> (out of <%= Battalion.find(battle[0]).units[unit_id] %>):
+										<%= number_field_tag :"units0[#{unit_id}]" %>
+									</li>
+								<% end %>
+							</ul>
+							Casualties for <%= Battalion.find(battle[1]).user.username %>: 
+							<ul>
+								<% Battalion.find(battle[1]).units.each do |unit_id, count| %>
+									<li>
+										<%= Unit.find(unit_id).name %> (out of <%= Battalion.find(battle[1]).units[unit_id] %>):
+										<%= number_field_tag :"units1[#{unit_id}]" %>
+									</li>
+								<% end %>
+							</ul>
+							<%= submit_tag("Submit Battle Results") %>
+						<% end %>
+					<% end %>
+				</div>
+			<% end %>
+		<% end %>
+	<% end %>
+
+	<table id="map" cellspacing="0">
+		<%= @campaign.to_html_table.html_safe %>
+	</table>
+
+</section>
+</main>

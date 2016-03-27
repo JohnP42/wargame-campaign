@@ -1,0 +1,10 @@
+<main>
+<section>
+	<h1>Ongoing Campaigns</h1>
+	<ul>
+		<% Campaign.all.each do |campaign| %>
+			<li><%= link_to campaign.name, campaign %></li>
+		<% end %>
+	</ul>
+</section>
+</main>

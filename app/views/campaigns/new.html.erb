@@ -1,0 +1,19 @@
+<main>
+	<section>
+		<h1>Start a New Campaign</h1>
+
+		<%= form_for @campaign, url: {action: "create"} do |f| %>
+			Map: <%= f.select :map, current_user.maps.map { |map| [map.name, map.id] } %>
+			Players: <%= f.select :users, current_user.friends.map { |user| user.username }, {}, { multiple: true } %>	
+			Name: <%= f.text_field :name %>
+			Description: <%= f.text_area :description %>
+			<%= f.submit "Start" %>
+		<% end %>
+
+		<ul class="errors">
+		<% @errors.each do |error| %>
+			<li><%= error %></li> 
+		<% end if @errors != nil %>
+		</ul>
+	</section>
+</main>

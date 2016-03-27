@@ -1,0 +1,22 @@
+<main>
+<section>
+	<h2>Edit this Unit</h2>
+
+	<%= form_for @unit, url: {action: "update"} do |f| %>
+		Name: <%= f.text_field :name %>
+		Combat-Type: <%= f.select :combatType, ["Infantry", "Cavalry", "Artillery", "Other"] %>
+		Description: <%= f.text_area :description %>
+		Price: <%= f.number_field :price, within: 1..1000 %>
+		Tier: <%= f.select :tier, [1, 2, 3] %>
+		Hero: <%= f.check_box :hero %>
+		<%= f.submit "Save Changes" %>
+	<% end %>
+
+	<ul class="errors">
+		<% @errors.each do |error| %>
+			<li><%= error %></li> 
+		<% end if @errors != nil %>
+	</ul>
+
+</section>
+</main>
