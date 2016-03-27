@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20160327061145) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "armies", force: :cascade do |t|
     t.string   "name"
     t.string   "description"
@@ -33,7 +36,7 @@ ActiveRecord::Schema.define(version: 20160327061145) do
     t.float    "movement",    default: 0.0
   end
 
-  add_index "battalions", ["user_id"], name: "index_battalions_on_user_id"
+  add_index "battalions", ["user_id"], name: "index_battalions_on_user_id", using: :btree
 
   create_table "campaigns", force: :cascade do |t|
     t.string   "name"
@@ -45,7 +48,7 @@ ActiveRecord::Schema.define(version: 20160327061145) do
     t.string   "white_list"
   end
 
-  add_index "campaigns", ["map_id"], name: "index_campaigns_on_map_id"
+  add_index "campaigns", ["map_id"], name: "index_campaigns_on_map_id", using: :btree
 
   create_table "friendships", force: :cascade do |t|
     t.integer  "user_id"
@@ -54,8 +57,8 @@ ActiveRecord::Schema.define(version: 20160327061145) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "friendships", ["friend_id"], name: "index_friendships_on_friend_id"
-  add_index "friendships", ["user_id"], name: "index_friendships_on_user_id"
+  add_index "friendships", ["friend_id"], name: "index_friendships_on_friend_id", using: :btree
+  add_index "friendships", ["user_id"], name: "index_friendships_on_user_id", using: :btree
 
   create_table "maps", force: :cascade do |t|
     t.string   "name"
@@ -69,16 +72,16 @@ ActiveRecord::Schema.define(version: 20160327061145) do
   create_table "units", force: :cascade do |t|
     t.string   "name"
     t.string   "description"
-    t.string   "combatType",            default: "Infantry"
-    t.integer  "price",                 default: 10
-    t.integer  "tier",        limit: 3, default: 1
-    t.boolean  "hero",                  default: true
+    t.string   "combatType",  default: "Infantry"
+    t.integer  "price",       default: 10
+    t.integer  "tier",        default: 1
+    t.boolean  "hero",        default: true
     t.integer  "army_id"
-    t.datetime "created_at",                                 null: false
-    t.datetime "updated_at",                                 null: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
   end
 
-  add_index "units", ["army_id"], name: "index_units_on_army_id"
+  add_index "units", ["army_id"], name: "index_units_on_army_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "username",                    null: false
@@ -90,6 +93,6 @@ ActiveRecord::Schema.define(version: 20160327061145) do
     t.datetime "updated_at",                  null: false
   end
 
-  add_index "users", ["campaign_id"], name: "index_users_on_campaign_id"
+  add_index "users", ["campaign_id"], name: "index_users_on_campaign_id", using: :btree
 
 end
