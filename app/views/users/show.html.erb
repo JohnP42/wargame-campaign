@@ -66,7 +66,9 @@
 		<% @user.friendships.each do |friendship| %>
 			<li>
 				<%= link_to friendship.friend.username, friendship.friend %>
-				<%= link_to "Remove", friendship, method: "delete" %>
+				<% if current_user == @user %>
+					<%= link_to "Remove", friendship, method: "delete" %>
+				<% end %>
 			</li>
 		<% end %>
 	</ul>
