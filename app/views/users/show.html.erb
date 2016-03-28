@@ -1,7 +1,7 @@
 <main>
 <h1><%= @user.username %></h1>
 
-<% if current_user.friends.find_by_id(@user.id) == nil && @user != current_user %>
+<% if current_user && current_user.friends.find_by_id(@user.id) == nil && @user != current_user %>
 	<div id="add-friend"><%= link_to "Add Friend", friendships_path(friend_id: @user.id), :method => :post %></div>
 <% end %>
 
