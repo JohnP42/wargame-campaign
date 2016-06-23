@@ -10,6 +10,7 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
+ *= require bootstrap.min.css
  *= require_self
  *= require_tree .
 */
@@ -77,6 +78,11 @@ a:last-child {
 
 a:hover {
 	color: $secondary;
+  text-decoration: none;
+}
+
+#nav-buttons {
+  margin: 5px;
 }
 
 #nav-buttons a {
@@ -115,6 +121,10 @@ section {
 	padding: 20px 50px;
 	margin: 10px;
 	min-width: 700px;
+}
+
+input, textarea, select {
+  color: black;
 }
 
 h1, h2, h3, h4 {

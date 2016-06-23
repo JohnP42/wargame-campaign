@@ -53,6 +53,7 @@ class ArmiesController < ApplicationController
 			army = Army.find(params[:id])
 			new_army = army.dup
 
+      new_army.is_current = false;
 			army.units.each { |unit| new_army.units << unit.dup}
 
       current_user.armies << new_army
