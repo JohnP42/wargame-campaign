@@ -125,6 +125,7 @@ class Battalion < ActiveRecord::Base
 	end
 
 	def can_move(direction, campaign)
+    return false if self.is_building
 		return case direction
 		when "Up"
 			self.movement >= campaign.map.move_cost(self.x, self.y - 1) && self.pos_valid?(self.x, self.y - 1, campaign.map.width, campaign.map.height)
@@ -192,7 +193,7 @@ class Battalion < ActiveRecord::Base
 
 			building = campaign.map.building_at(x, y)
 			if building
-				data = Battalion.initialize_building(x, y, building, self.units) 
+				data = Battalion.initialize_building(x, y, building, self.units)
 				self.update_attributes(data)
 			end
 
@@ -200,13 +201,13 @@ class Battalion < ActiveRecord::Base
 		end
 	end
 
-	def possible_moves(campaign) 
+	def possible_moves(campaign)
 		moves = []
 
-		moves << ["Up", "#{self.x},#{self.y - 1}"] if (campaign.map.tile_at(self.x, self.y - 1) != "3" && self.pos_valid?(self.x, self.y - 1, campaign.map.width, campaign.map.height))
-		moves << ["Right", "#{self.x + 1},#{self.y}"] if (campaign.map.tile_at(self.x + 1, self.y) != "3" && self.pos_valid?(self.x + 1, self.y, campaign.map.width, campaign.map.height))
-		moves << ["Down", "#{self.x},#{self.y + 1}"] if (campaign.map.tile_at(self.x, self.y + 1) != "3" && self.pos_valid?(self.x, self.y + 1, campaign.map.width, campaign.map.height))
-		moves << ["Left", "#{self.x - 1},#{self.y}"] if (campaign.map.tile_at(self.x - 1, self.y) != "3" && self.pos_valid?(self.x - 1, self.y, campaign.map.width, campaign.map.height))
+		moves << ["Up", "#{self.x},#{self.y - 1}"] if (self.pos_valid?(self.x, self.y - 1, campaign.map.width, campaign.map.height) && campaign.map.tile_at(self.x, self.y - 1) != "3" )
+		moves << ["Right", "#{self.x + 1},#{self.y}"] if (self.pos_valid?(self.x + 1, self.y, campaign.map.width, campaign.map.height) && campaign.map.tile_at(self.x + 1, self.y) != "3")
+		moves << ["Down", "#{self.x},#{self.y + 1}"] if (self.pos_valid?(self.x, self.y + 1, campaign.map.width, campaign.map.height) && campaign.map.tile_at(self.x, self.y + 1) != "3")
+		moves << ["Left", "#{self.x - 1},#{self.y}"] if (self.pos_valid?(self.x - 1, self.y, campaign.map.width, campaign.map.height) && campaign.map.tile_at(self.x - 1, self.y) != "3")
 		moves
 	end
 

@@ -20,7 +20,7 @@ class Map < ActiveRecord::Base
 
 	def to_html_table
 		html = ""
-		
+
 		self.tileset.split("n").each do |row|
 			html += "<tr>"
 			row.chars.each do |num|
@@ -30,7 +30,7 @@ class Map < ActiveRecord::Base
 		end
 
 		html
-	end 
+	end
 
 	def width
 		self.tileset.split("n")[0].length
@@ -72,7 +72,7 @@ class Map < ActiveRecord::Base
 	def building_at(x, y)
 		tile = self.tileset.split("n")[y][x]
 		return "castle" if tile == "4"
-		return "town" if tile == "5" 
+		return "town" if tile == "5"
 		nil
 	end
 

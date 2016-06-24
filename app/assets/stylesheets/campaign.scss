@@ -8,6 +8,10 @@ $secondary-light: #0066CC;
 $secondary: #003366;
 $secondary-dark: #001122;
 
+button {
+  color: black;
+}
+
 .battalion {
 	border: 4px ridge silver;
 	padding: 0px 5px;
@@ -23,13 +27,13 @@ $secondary-dark: #001122;
 	background-color: $secondary-dark;
 	padding: 2px;
 	margin: 2px;
-	border: 1px solid silver; 
+	border: 1px solid silver;
 }
 
 .buildings li:first-child {
 	display: inline-block;
 	background-color: $dark;
-	border: none; 
+	border: none;
 }
 
 .units h4 {
@@ -42,13 +46,13 @@ $secondary-dark: #001122;
 	background-color: $secondary-dark;
 	padding: 2px;
 	margin: 2px;
-	border: 1px solid silver; 
+	border: 1px solid silver;
 }
 
 .units li:first-child {
 	display: inline-block;
 	background-color: $dark;
-	border: none; 
+	border: none;
 }
 
 .icon {
@@ -126,5 +130,5 @@ $secondary-dark: #001122;
 }
 
 .btn-direction {
-	width: 50px;
+	width: 55px;
 }
