@@ -20,6 +20,7 @@ class Campaign < ActiveRecord::Base
 			self.users[i].gold = 100
 			loc = locs.pop
 			self.users[i].battalions.create!(Battalion.initialize_building(loc[0], loc[1]))
+      self.users[i].save
 		end
 		self.add_gold
 		self.save
