@@ -72,27 +72,29 @@ class CampaignsController < ApplicationController
 		units = {}
 
 		if params[:units]
-			params[:units].each do |unit_id, count| 
+			params[:units].each do |unit_id, count|
 				if count != "0"
 					battalion.remove_units(Integer(unit_id), Integer(count))
 					units[Integer(unit_id)] = Integer(count)
 				end
 			end
 
-			x = Integer(params[:move_location].split(",")[0])
-			y = Integer(params[:move_location].split(",")[1])
+      if units.length > 0
+  			x = Integer(params[:move_location].split(",")[0])
+  			y = Integer(params[:move_location].split(",")[1])
 
-			battalions_at_location = @campaign.get_battalions_at_pos(x, y)
+  			battalions_at_location = @campaign.get_battalions_at_pos(x, y)
 
-			if battalions_at_location.length > 0
-				battalions_at_location.each do |b|
-					units.each do |unit_id, count|
-						b.add_units(unit_id, count)
-					end
-				end
-			else
-				current_user.battalions.create!(Battalion.initialize_unit(x, y, units))
-			end
+  			if battalions_at_location.length > 0
+  				battalions_at_location.each do |b|
+  					units.each do |unit_id, count|
+  						b.add_units(unit_id, count)
+  					end
+  				end
+  			else
+  				current_user.battalions.create!(Battalion.initialize_unit(x, y, units))
+  			end
+      end
 			battalion.save
 		end
 		redirect_to edit_campaign_path(@campaign)
@@ -108,9 +110,9 @@ class CampaignsController < ApplicationController
 			end
 
 			battalion_string = render_to_string partial: "battalion", locals: {battalion: battalion}
-			render json: { 
-				map: Campaign.find(params[:id]).to_html_table.html_safe, 
-				battalion: battalion_string, 
+			render json: {
+				map: Campaign.find(params[:id]).to_html_table.html_safe,
+				battalion: battalion_string,
 				battalion_id: battalion.id,
 			}
 		else

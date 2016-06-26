@@ -1,6 +1,6 @@
 class Campaign < ActiveRecord::Base
 
-	has_many :users
+	has_many :users, -> { order 'id' }
 	belongs_to :map
 
 	validates :name, presence: true
@@ -46,7 +46,7 @@ class Campaign < ActiveRecord::Base
 
 	def to_html_table
 		html = ""
-		
+
 		self.map.tileset.split("n").each_with_index do |row, y|
 			html += "<tr>"
 			row.chars.each_with_index do |num, x|
@@ -62,7 +62,7 @@ class Campaign < ActiveRecord::Base
 		end
 
 		html
-	end 
+	end
 
 	def get_battalion_at_pos(x, y)
 		all_battalions.each do |battalion|
@@ -96,7 +96,7 @@ class Campaign < ActiveRecord::Base
 	def all_battles
 		battles = []
 		all_battalions.each do |battalion|
-			battle = get_battalions_at_pos(battalion.x, battalion.y).map {|b| b.id} 
+			battle = get_battalions_at_pos(battalion.x, battalion.y).map {|b| b.id}
 			battles << battle if battle.length > 1 && !battles.include?([battle[1], battle[0]]) && !battles.include?([battle[0], battle[1]])
 		end
 		battles

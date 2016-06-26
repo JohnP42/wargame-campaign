@@ -6,7 +6,7 @@
 		Name: <%= f.text_field :name %>
 		Combat-Type: <%= f.select :combatType, ["Infantry", "Cavalry", "Artillery", "Other"] %>
 		Description: <%= f.text_area :description %>
-		Price: <%= f.number_field :price, within: 1..1000 %>
+		Price: <%= f.number_field :price, within: 0..1000 %>
 		Tier: <%= f.select :tier, [1, 2, 3] %>
 		Hero: <%= f.check_box :hero, checked: false %>
 		<%= f.submit "Add Unit" %>
@@ -14,7 +14,7 @@
 
 	<ul class="errors">
 		<% @errors.each do |error| %>
-			<li><%= error %></li> 
+			<li><%= error %></li>
 		<% end if @errors != nil %>
 	</ul>
 
