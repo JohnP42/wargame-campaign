@@ -129,13 +129,13 @@ class CampaignsController < ApplicationController
 			if count != ""
 				battalion0.remove_units(Integer(unit_id), Integer(count))
 			end
-		end
+		end if params[:units0]
 
 		params[:units1].each do |unit_id, count|
 			if count != ""
 				battalion1.remove_units(Integer(unit_id), Integer(count))
-			end
-		end
+      end
+		end if params[:units1]
 
 		if params["winner"] == "0"
 			building = battalion1.user.first_building
@@ -144,7 +144,7 @@ class CampaignsController < ApplicationController
 			end
 			battalion1.destroy
 		else
-			building = battalion1.user.first_building
+			building = battalion0.user.first_building
 			if building
 				battalion0.units.each { |unit_id, count| building.add_units(unit_id, count) }
 			end

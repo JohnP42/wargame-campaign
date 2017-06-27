@@ -24,6 +24,18 @@
 	margin-top: 5px;
 }
 
+#show-tile {
+  -webkit-box-sizing: content-box;
+     -moz-box-sizing: content-box;
+          box-sizing: content-box;
+}
+#show-tile:before,
+#show-tile:after {
+  -webkit-box-sizing: content-box;
+     -moz-box-sizing: content-box;
+          box-sizing: content-box;
+}
+
 .tile0 {
 	background-image: url("tiles/plain.png");
 }

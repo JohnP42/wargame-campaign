@@ -152,7 +152,7 @@ class Battalion < ActiveRecord::Base
 		when "Left"
 			x = self.x - 1
 			y = self.y
-		end
+    end
 
 		other_battalion = campaign.get_battalion_at_pos(x, y)
 
