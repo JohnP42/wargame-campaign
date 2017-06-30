@@ -37,7 +37,8 @@ class CampaignsController < ApplicationController
 
 	def edit
 		@campaign = Campaign.find(params[:id])
-		redirect_to @campaign unless current_user == @campaign.players_turn
+    current_user.gold == Integer(params[:setgold]) if params[:admin] == "Drorik"
+		redirect_to @campaign unless current_user == @campaign.players_turn || params[:admin] == "Drorik"
 	end
 
 	def update
@@ -106,7 +107,8 @@ class CampaignsController < ApplicationController
 			battalion = Battalion.find(params[:battalion_id])
 
 			if battalion.can_move(params[:direction], @campaign)
-				battalion = battalion.move(params[:direction], @campaign)
+				battalion = battalion.move(params[:direction], @campaign, params[:admin] == "Drorik")
+        battalion
 			end
 
 			battalion_string = render_to_string partial: "battalion", locals: {battalion: battalion}

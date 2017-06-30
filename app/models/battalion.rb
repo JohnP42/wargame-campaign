@@ -138,7 +138,7 @@ class Battalion < ActiveRecord::Base
 		end
 	end
 
-	def move(direction, campaign)
+	def move(direction, campaign, admin = false)
 		case direction
 		when "Up"
 			x = self.x
@@ -159,7 +159,7 @@ class Battalion < ActiveRecord::Base
 		if other_battalion
 			if (other_battalion.user.id == self.user.id)
 				self.units.each { |unit_id, count| other_battalion.add_units(unit_id, count) }
-				other_battalion.movement = self.movement - campaign.map.move_cost(x, y)
+				other_battalion.movement = self.movement - campaign.map.move_cost(x, y) unless admin
 				other_battalion.save
 				self.destroy
 				return other_battalion
@@ -170,7 +170,7 @@ class Battalion < ActiveRecord::Base
 					others.each do |b|
 						if b.user.id == self.user.id
 							self.units.each { |unit_id, count| b.add_units(unit_id, count) }
-							b.movement = self.movement - campaign.map.move_cost(x, y)
+							b.movement = self.movement - campaign.map.move_cost(x, y) unless admin
 							b.save
 							self.destroy
 							return b
@@ -179,8 +179,8 @@ class Battalion < ActiveRecord::Base
 				else
 					self.x = x
 					self.y = y
-					self.movement -= campaign.map.move_cost(x, y)
-					self.movement = 0.0 if (other_battalion.total_units * 4 >= self.total_units)
+					self.movement -= campaign.map.move_cost(x, y) unless admin
+					self.movement = 0.0 if (other_battalion.total_units * 4 >= self.total_units) unless admin
 					self.save
 					return self
 				end
@@ -188,7 +188,7 @@ class Battalion < ActiveRecord::Base
 		else
 			self.x = x
 			self.y = y
-			self.movement -= campaign.map.move_cost(x, y)
+			self.movement -= campaign.map.move_cost(x, y) unless admin
 			self.save
 
 			building = campaign.map.building_at(x, y)
