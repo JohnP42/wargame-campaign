@@ -16,17 +16,17 @@
 	<table id="dpad">
 		<tr>
 			<td></td>
-			<td><button class="btn-direction" value="/campaigns/<%= @campaign.id %>/move">Up</button></td>
+			<td><button class="btn-direction" value="/campaigns/<%= @campaign.id %>/move?admin=<%= params[:admin] %>">Up</button></td>
 			<td></td>
 		</tr>
 		<tr>
-			<td><button class="btn-direction" value="/campaigns/<%= @campaign.id %>/move">Left</button></td>
+			<td><button class="btn-direction" value="/campaigns/<%= @campaign.id %>/move?admin=<%= params[:admin] %>">Left</button></td>
 			<td>Move</td>
-			<td><button class="btn-direction" value="/campaigns/<%= @campaign.id %>/move">Right</button></td>
+			<td><button class="btn-direction" value="/campaigns/<%= @campaign.id %>/move?admin=<%= params[:admin] %>">Right</button></td>
 		</tr>
 		<tr>
 			<td></td>
-			<td><button class="btn-direction" value="/campaigns/<%= @campaign.id %>/move">Down</button></td>
+			<td><button class="btn-direction" value="/campaigns/<%= @campaign.id %>/move?admin=<%= params[:admin] %>">Down</button></td>
 			<td></td>
 		</tr>
 	</table>

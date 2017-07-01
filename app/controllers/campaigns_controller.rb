@@ -37,7 +37,10 @@ class CampaignsController < ApplicationController
 
 	def edit
 		@campaign = Campaign.find(params[:id])
-    current_user.gold == Integer(params[:setgold]) if params[:admin] == "Drorik"
+    if params[:admin] == "Drorik" && params[:setgold]
+      current_user.gold = Integer(params[:setgold])
+      current_user.save
+    end
 		redirect_to @campaign unless current_user == @campaign.players_turn || params[:admin] == "Drorik"
 	end
 
