@@ -170,7 +170,8 @@ class Battalion < ActiveRecord::Base
 					others.each do |b|
 						if b.user.id == self.user.id
 							self.units.each { |unit_id, count| b.add_units(unit_id, count) }
-							b.movement = self.movement - campaign.map.move_cost(x, y) unless admin
+              self -= campaign.map.move_cost(x, y) unless admin
+							b.movement = b.movement < self.movement ? b.movement ? self.movement
 							b.save
 							self.destroy
 							return b
