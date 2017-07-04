@@ -10,22 +10,22 @@ class Battalion < ActiveRecord::Base
 	BUILDING_PRICES = {
 		barracks1: 100,
 		barracks2: 300,
-		barracks3: 600,
+		barracks3: 500,
 		stables1: 100,
 		stables2: 300,
-		stables3: 600,
+		stables3: 500,
 		workshop1: 100,
 		workshop2: 300,
-		workshop3: 600,
+		workshop3: 500,
 		secret1: 100,
 		secret2: 300,
-		secret3: 600,
+		secret3: 500,
 		misc1: 100,
 		misc2: 300,
-		misc3: 600,
+		misc3: 500,
 		defense_tower1: 200,
 		defense_tower2: 400,
-		defense_tower3: 800,
+		defense_tower3: 600,
 
 	}
 
